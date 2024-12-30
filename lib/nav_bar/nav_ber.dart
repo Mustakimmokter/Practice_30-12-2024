@@ -21,23 +21,27 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final double sizeOf = MediaQuery.sizeOf(context).width;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(length, (index) {
           return Row(
             children: [
-              GestureDetector(
+              InkWell(
+                borderRadius: BorderRadius.circular(100),
                 onTap: () {
                   onTap(index);
                 },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(icons[index],color: Colors.white,),
-                    Text(label[index],style: TextStyle(color: Colors.white),),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(icons[index],color: Colors.white,),
+                      Text(label[index],style: TextStyle(color: Colors.white),),
+                    ],
+                  ),
                 ),
               ),
               index == 1? SizedBox(width: sizeOf / floatSize!) :SizedBox(),

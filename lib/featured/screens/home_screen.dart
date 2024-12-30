@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:testone/controller/loading_controller.dart';
-import 'package:testone/controller/navbar_controller.dart';
 import 'package:testone/widgets/button_one.dart';
+import 'package:testone/widgets/icon_button.dart';
 
 class HomeScreen extends StatelessWidget {
    const HomeScreen({super.key});
@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoadingController loadingController = Get.put(LoadingController());
-    final NavbarController navBarController = Get.put(NavbarController());
     return Column(
       children: [
         Expanded(
@@ -38,8 +37,8 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment : MainAxisAlignment.spaceBetween,
                     children: [
                       Text("${index+1}. This is me"),
-                      ButtonOne(
-                        icon: Icons.favorite,
+                      CustomIconButton(
+                        iconData: index.isEven? Icons.favorite_border: Icons.favorite,
                         onTap: () {
                           if (kDebugMode) {
                             print(index+1);
@@ -55,38 +54,29 @@ class HomeScreen extends StatelessWidget {
         ),
         SizedBox(height: 20),
         ButtonOne(
-          onTap: (){
+          width: double.maxFinite,
+          onPressed: (){
             loadingController.getLoading(context);
           },
-          widget: Container(
-            width: double.maxFinite,
-            alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
-              //borderRadius: BorderRadius.circular(10),
-
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(flex: 3,),
-                Text("SUBMIT",style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w500),),
-                Spacer(flex: 2,),
-                Obx(() {
-                  return loadingController.isLoading == true ?  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ): SizedBox(  width: 30,
-                    height: 30,
-                  );
-                },
-                ),
-              ],
-            ),
+          widget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(flex: 3,),
+              Text("SUBMIT",style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w500),),
+              Spacer(flex: 2,),
+              Obx(() {
+                return loadingController.isLoading == true ?  SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ): SizedBox(  width: 30,
+                  height: 30,
+                );
+              },
+              ),
+            ],
           ),
         ),
         SizedBox(height: 50),

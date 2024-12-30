@@ -39,7 +39,7 @@ class NavBarScreenController extends StatelessWidget {
         notchMargin: 10,
         clipBehavior: Clip.antiAlias,
         color: Colors.redAccent,
-        height: 60,
+        height: 70,
         child: NavBar(
           length: 4,
           icons: [Icons.home_filled,Icons.person,Icons.favorite,Icons.settings],
