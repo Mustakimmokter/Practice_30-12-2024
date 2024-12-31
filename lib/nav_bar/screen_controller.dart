@@ -33,21 +33,13 @@ class NavBarScreenController extends StatelessWidget {
         ),
 
       ),
-      bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.zero,
-        shape: CircularNotchedRectangle(),
-        notchMargin: 10,
-        clipBehavior: Clip.antiAlias,
-        color: Colors.redAccent,
-        height: 70,
-        child: NavBar(
-          length: 4,
-          icons: [Icons.home_filled,Icons.person,Icons.favorite,Icons.settings],
-          onTap: (value) {
-            navBarController.getNavBar(value);
-          },
-          label: ['Home','Profile','Favorite','Setting'],
-        ),
+      bottomNavigationBar: NavBar(
+        length: 4,
+        icons: [Icons.store,Icons.production_quantity_limits_rounded,Icons.shopping_cart,Icons.person],
+        onTap: (value) {
+          navBarController.getNavBar(value);
+        },
+        label: ['Store','Product','Cart','Profile'],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -58,10 +50,9 @@ class NavBarScreenController extends StatelessWidget {
         ),
         backgroundColor: Colors.redAccent,
         elevation: 6,
-        child: Icon(Icons.add,size: 30,color: Colors.white,),
+        child: Icon(Icons.message,size: 30,color: Colors.white,),
 
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Obx(() {
         return  PageTransitionSwitcher(
           transitionBuilder: (child, primaryAnimation, secondaryAnimation) {

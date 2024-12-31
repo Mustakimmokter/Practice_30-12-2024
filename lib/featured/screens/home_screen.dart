@@ -1,85 +1,72 @@
-import 'package:flutter/foundation.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:testone/controller/banner_indicator_controller.dart';
 import 'package:testone/controller/loading_controller.dart';
-import 'package:testone/widgets/button_one.dart';
 import 'package:testone/widgets/icon_button.dart';
 
 class HomeScreen extends StatelessWidget {
    const HomeScreen({super.key});
 
+   static const List<Color> colors= [Colors.redAccent,Colors.lightGreen,Colors.orangeAccent];
+   static var controller = PageController(viewportFraction: 1);
+
   @override
   Widget build(BuildContext context) {
     final LoadingController loadingController = Get.put(LoadingController());
+    final BannerIndicatorController bannerIndicatorController = Get.put(BannerIndicatorController());
+    final Size size = MediaQuery.of(context).size;
+    final double ratioSize = MediaQuery.devicePixelRatioOf(context);
     return Column(
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: Column(
-              children: List.generate(20, (index) {
+        Stack(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: true,
+                padEnds: false,
+                viewportFraction: 1.0,
+                height: 150,
+                initialPage: 1,
+                onPageChanged: (index, reason) {
+                  bannerIndicatorController.getIndicator(index);
+                },
+              ),
+              items: List.generate(3, (index) {
                 return Container(
-                  margin: EdgeInsets.only(left: 20,right: 20, bottom: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                  margin: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                  alignment: Alignment.center,
                   width: double.maxFinite,
                   decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade200,
-                        blurRadius: 2,
-                        offset: Offset(0, 1),
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    color: colors[index],
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  child: Row(
-                    mainAxisAlignment : MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("${index+1}. This is me"),
-                      CustomIconButton(
-                        iconData: index.isEven? Icons.favorite_border: Icons.favorite,
-                        onTap: () {
-                          if (kDebugMode) {
-                            print(index+1);
-                          }
-                        },
-                      ),
-                    ],
+                  child: Text('${index+1}. Ads Banner',
+                    style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                 );
               },),
+              //carouselController: CarouselSliderController(),
             ),
-          ),
-        ),
-        SizedBox(height: 20),
-        ButtonOne(
-          width: double.maxFinite,
-          onPressed: (){
-            loadingController.getLoading(context);
-          },
-          widget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Spacer(flex: 3,),
-              Text("SUBMIT",style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w500),),
-              Spacer(flex: 2,),
-              Obx(() {
-                return loadingController.isLoading == true ?  SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+            Obx(() {
+              return Positioned(
+                left: 150,
+                bottom: 30,
+                child: AnimatedSmoothIndicator(
+                  activeIndex: bannerIndicatorController.activeIndicator,
+                  count:  3,
+                  effect:  ExpandingDotsEffect(
+                      activeDotColor: Colors.white,
+                      dotColor: Colors.grey.shade400,
+                      dotHeight: 10,
+                      dotWidth: 10
                   ),
-                ): SizedBox(  width: 30,
-                  height: 30,
-                );
-              },
-              ),
-            ],
-          ),
+                )  ,
+              );
+            },),
+          ],
         ),
-        SizedBox(height: 50),
       ],
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton ({super.key,
     required this.onTap,
-    this.iconData = Icons.favorite,
+    this.iconData = Icons.add,
     this.color = Colors.redAccent,
     this.size = 24,
     this.child,

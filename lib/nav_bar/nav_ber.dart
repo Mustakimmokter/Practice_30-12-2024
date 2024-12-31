@@ -15,13 +15,13 @@ class NavBar extends StatelessWidget {
   final int length;
   final double? floatSize;
 
-  //static const List _label = ['Profile','Favorite','History','Settings'];
-
   @override
   Widget build(BuildContext context) {
     final double sizeOf = MediaQuery.sizeOf(context).width;
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
+      height: 70,
+      color: Colors.redAccent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(length, (index) {
@@ -44,7 +44,6 @@ class NavBar extends StatelessWidget {
                   ),
                 ),
               ),
-              index == 1? SizedBox(width: sizeOf / floatSize!) :SizedBox(),
             ],
           );
         },),
