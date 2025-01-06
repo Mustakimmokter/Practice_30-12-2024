@@ -38,6 +38,11 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
 
+  assets:
+    - assets/images/banners/
+    - assets/images/tvs/
+
+
   # example:
   # fonts:
   #   - family: Schyler
