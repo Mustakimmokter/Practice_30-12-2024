@@ -5,7 +5,6 @@ import 'package:testone/constant/constant_data.dart';
 import 'package:testone/controller/banner_indicator_controller.dart';
 import 'package:testone/controller/loading_controller.dart';
 import 'package:testone/widgets/ads_banner.dart';
-import 'package:testone/widgets/custom_icon_button.dart';
 import 'package:testone/widgets/round_icon_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -66,7 +65,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Column(
-              children: List.generate(ConstantData.productsCategory().length, (listIndex) {
+              children: List.generate(ConstantData.allProducts().length, (listIndex) {
                 return Column(
                   children: [
                     /// Best Deals
@@ -75,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(ConstantData.productsCategory()[listIndex],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
+                          Text(ConstantData.allProducts()[listIndex].title,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 3,horizontal: 16),
                             decoration: BoxDecoration(
@@ -94,26 +93,25 @@ class HomeScreen extends StatelessWidget {
                       width: double.maxFinite,
                       child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 20),
-                        itemCount: ConstantData.productsDetails()[listIndex]['Description']?.length,
+                        itemCount: ConstantData.allProducts()[listIndex].items.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, contentIndex) {
                           return Row(
                             children: [
                               Container(
                                 margin: EdgeInsets.only(right : 12,top: 5),
-                                height: 260,
+                                //height: 260,
                                 width: 200,
                                 child: Column(
                                   children: [
-                                    Text(
-                                      ConstantData.productsDetails()[listIndex]['Description']![contentIndex],
+                                    Text(ConstantData.allProducts()[listIndex].title == 'Shop By Brand' ? '' : ConstantData.allProducts()[listIndex].items[contentIndex].description,
                                       style: TextStyle(fontSize: 12),
                                     ),
-                                    Image.asset(ConstantData.productsDetails()[listIndex]['Tv']![contentIndex],width: 140,),
+                                    Image.asset(ConstantData.allProducts()[listIndex].items[contentIndex].img,width: 140,),
                                   ],
                                 ),
                               ),
-                             listIndex == ConstantData.productsDetails()[listIndex]['Description']!.length-1? SizedBox() : VerticalDivider(indent: 20,endIndent: 20,),
+                             contentIndex == ConstantData.allProducts()[listIndex].items.length-1? SizedBox(): VerticalDivider(indent: 20,endIndent: 20,),
                             ],
                           );
                         },

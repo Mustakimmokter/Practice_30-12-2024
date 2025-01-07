@@ -40,7 +40,13 @@ flutter:
 
   assets:
     - assets/images/banners/
+    - assets/images/air_conditioner/
+    - assets/images/microwave_oven/
+    - assets/images/refrigeration/
+    - assets/images/room_heater/
+    - assets/images/shop_by_brand/
     - assets/images/tvs/
+    - assets/images/washing_machine/
 
 
   # example:
