@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Divider(indent: 20,endIndent: 20,),
                     SizedBox(
-                      height: 260,
+                      height: 300,
                       width: double.maxFinite,
                       child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -99,15 +99,111 @@ class HomeScreen extends StatelessWidget {
                           return Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(right : 12,top: 5),
+                                margin: EdgeInsets.only(right : 12,top: 5,left: 12),
                                 //height: 260,
                                 width: 200,
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(ConstantData.allProducts()[listIndex].title == 'Shop By Brand' ? '' : ConstantData.allProducts()[listIndex].items[contentIndex].description,
                                       style: TextStyle(fontSize: 12),
                                     ),
-                                    Image.asset(ConstantData.allProducts()[listIndex].items[contentIndex].img,width: 140,),
+                                    /// Product image and EMI
+                                    Stack(
+                                      children: [
+                                        /// Stack size
+                                        SizedBox(
+                                            width: 200,
+                                            height: 140,
+                                          ),
+                                        ///Product images
+                                        Positioned(
+                                          top: 20,
+                                          left: 30,
+                                          child: Image.asset(ConstantData.allProducts()[listIndex].items[contentIndex].img,width: 110,),
+                                        ),
+                                       ///EMI
+                                        ConstantData.allProducts()[listIndex].title == 'Shop By Brand' ? SizedBox() :Positioned(
+                                         right: 0,
+                                         child: Stack(
+                                           children: [
+                                             Container(
+                                               alignment: Alignment.center,
+                                               height: 40,
+                                               width: 40,
+                                               decoration: BoxDecoration(
+                                                 color: Colors.redAccent,
+                                                 borderRadius: BorderRadius.circular(100),
+                                                 boxShadow: [
+                                                   BoxShadow(
+                                                     color: Colors.grey.shade400,
+                                                     blurRadius: 7,
+                                                     offset: Offset(1, 1),
+                                                   )
+                                                 ],
+                                               ),
+                                             ),
+                                             Positioned(
+                                               left: 12,
+                                               top: 5,
+                                               child:  Text('EMI',
+                                                 style: TextStyle(color: Colors.white,fontSize: 10),
+                                                 textAlign: TextAlign.center,
+                                               ),
+                                             ),
+                                             Positioned(
+                                               left: 12,
+                                               bottom: 3,
+                                               child:  Text('${ConstantData.allProducts()[listIndex].items[contentIndex].emi}',
+                                                 style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.w500,),
+                                                 textAlign: TextAlign.center,
+                                               ),
+                                             ),
+                                           ],
+                                         ),
+                                       ),
+                                      ],
+                                    ),
+                                    /// EMI by tk/month
+                                    Row(
+                                      children: [
+                                        Icon(Icons.account_balance_wallet_outlined,size: 18,),
+                                        SizedBox(width: 5,),
+                                        Text(ConstantData.allProducts()[listIndex].items[contentIndex].emiTkByMonth,style: TextStyle(fontSize: 12),),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10,),
+                                   Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       Column(
+                                         children: [
+                                           /// New price
+                                           Text('Tk ${ConstantData.allProducts()[listIndex].items[contentIndex].newPrice}',),
+                                           /// New price
+                                           Text('Tk ${ConstantData.allProducts()[listIndex].items[contentIndex].newPrice}',
+                                             style: TextStyle(
+                                               fontSize: 12,color: Colors.redAccent,
+                                               decoration: TextDecoration.lineThrough,
+                                               decorationColor: Colors.redAccent,
+                                             ),
+                                           ),
+                                         ],
+                                       ),
+                                       Container(
+                                         padding: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+                                         decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(5),
+                                           color: Colors.redAccent
+                                         ),
+                                         child: Text(ConstantData.allProducts()[listIndex].items[contentIndex].discount,
+                                         style: TextStyle(color: Colors.white,fontSize: 12),
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+
                                   ],
                                 ),
                               ),
